@@ -1,0 +1,72 @@
+.header {
+  background-color: #f8f9fa; /* 부드러운 배경색 */
+  padding: 1rem; /* 패딩 설정 */
+  border-bottom: 1px solid #dee2e6; /* 하단 경계선 */
+  position: fixed; /* 헤더 고정 */
+  top: 0; /* 페이지 상단에 위치하도록 */
+  left: 0; /* 페이지 왼쪽에 맞춤 */
+  width: 100%; /* 전체 너비 사용 */
+  z-index: 1000; /* 다른 요소들 위에 위치하도록 */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* 양쪽 끝으로 요소 배치 */
+  align-items: center; /* 수직 정렬 */
+}
+
+.header-buttons {
+  display: flex; /* 버튼을 나란히 배치 */
+}
+
+.btn {
+  padding: 0.5rem 1rem; /* 버튼의 내부 여백 */
+  border: none; /* 기본 테두리 제거 */
+  border-radius: 4px; /* 모서리 둥글게 */
+  cursor: pointer; /* 마우스 커서 변경 */
+}
+
+.login-btn {
+  background-color: #6c757d; /* 로그인 버튼 색상 */
+  color: white; /* 텍스트 색상 */
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+.signup-btn {
+  background-color: #007bff; /* 회원가입 버튼 색상 */
+  color: white; /* 텍스트 색상 */
+  margin-right: 150px;
+}
+
+.nav {
+  margin: 0; /* 기본 마진 제거 */
+  flex-grow: 1; /* 버튼과 네비게이션 영역의 flex 균형 */
+  display: flex;
+  justify-content: center; /* 내비게이션 메뉴 중앙 정렬 */
+}
+
+.nav ul {
+  display: flex; /* 메뉴 항목을 나란히 배치 */
+  list-style-type: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+}
+
+.nav-item {
+  margin: 0 15px; /* 간격 설정 */
+  cursor: pointer; /* 마우스 커서 변경 */
+  color: #007bff; /* 텍스트 색상 */
+}
+
+.nav-item:hover {
+  text-decoration: underline; /* 마우스 오버 시 밑줄 표시 */
+}
+.logo {
+  width: 130px; /* 부모 요소의 너비에 맞춤 */
+  height: 120px; /* 고정 높이 설정 */
+  object-fit: cover; /* 이미지가 박스에 맞추도록 자름 */
+  margin-right: 20px; /* 오른쪽 여백 추가 */
+}
+/* 아래 공간을 추가하여 헤더가 다른 컨텐츠 위에 가리지 않도록 위치 조정 */
+body {
+  padding-top: 70px; /* 헤더 높이에 맞춰 공간 추가 */
+}
