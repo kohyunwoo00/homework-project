@@ -36,6 +36,7 @@
   background-color: #007bff; /* 회원가입 버튼 색상 */
   color: white; /* 텍스트 색상 */
   margin-right: 150px;
+  font-weight: 100;
 }
 
 .nav {
