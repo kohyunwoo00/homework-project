@@ -63,11 +63,6 @@ function Login() {
         <button type="submit" className="login-button">
           로그인
         </button>
-
-        <div className="additional-links">
-          <a href="/signup">회원가입</a>
-          <a href="/find-password">비밀번호 찾기</a>
-        </div>
       </form>
     </div>
   );

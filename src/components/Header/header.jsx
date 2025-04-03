@@ -34,8 +34,8 @@ const Header = () => {
             >
               자유게시판
             </li>
-            <li className="nav-item" onClick={() => handleNavClick("공지사항")}>
-              공지사항
+            <li className="nav-item" onClick={() => handleNavClick("내 정보")}>
+              내 정보
             </li>
           </ul>
         </nav>
