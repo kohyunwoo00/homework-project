@@ -1,31 +1,58 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 로그인 성공 후 이동을 위해 import
-import axios from "axios"; // 백엔드와 통신하기 위해 axios 사용
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Login.css";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [memberId, setMemberId] = useState("");
+  const [memberPw, setMemberPw] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // 로그인 성공 시 이동
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("로그인 요청 데이터:", { memberId, memberPw });
 
     try {
-      const response = await axios.post("http://localhost:80/auth/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost/auth/login",
+        { memberId, memberPw },
+        { headers: { "Content-Type": "application/json" } } // JSON 데이터 명시
+      );
 
-      if (response.data.success) {
+      console.log("로그인 응답:", response.data); // 응답 데이터 확인
+
+      // 응답 데이터에 토큰이 있으면 로그인 성공
+      if (response.data.accessToken) {
         alert("로그인 성공!");
-        navigate("/"); // 로그인 성공 시 홈으로 이동
+
+        // ✅ 토큰을 로컬 스토리지에 저장 (추후 API 요청 시 사용)
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        localStorage.setItem("teamNo", response.data.teamNo);
+        localStorage.setItem("teamName", response.data.teamName);
+
+        navigate("/");
       } else {
         setError("아이디 또는 비밀번호가 올바르지 않습니다.");
       }
     } catch (error) {
-      setError("서버 오류: 로그인 실패");
+      console.error("로그인 요청 중 오류 발생:", error);
+
+      if (error.response) {
+        if (error.response.status === 403) {
+          setError("접근이 거부되었습니다. 관리자에게 문의하세요.");
+        } else if (error.response.status === 400) {
+          setError("아이디 또는 비밀번호가 올바르지 않습니다.");
+        } else {
+          setError(`로그인 실패: ${error.response.status}`);
+        }
+      } else if (error.request) {
+        setError("서버 응답이 없습니다. 네트워크 상태를 확인하세요.");
+      } else {
+        setError("로그인 요청 중 문제가 발생했습니다.");
+      }
     }
   };
 
@@ -37,24 +64,24 @@ function Login() {
         {error && <p className="error-message">{error}</p>}
 
         <div className="input-group">
-          <label htmlFor="username">아이디</label>
+          <label htmlFor="memberId">아이디</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="memberId"
+            value={memberId}
+            onChange={(e) => setMemberId(e.target.value)}
             placeholder="아이디를 입력하세요"
             required
           />
         </div>
 
         <div className="input-group">
-          <label htmlFor="password">비밀번호</label>
+          <label htmlFor="memberPw">비밀번호</label>
           <input
             type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            id="memberPw"
+            value={memberPw}
+            onChange={(e) => setMemberPw(e.target.value)}
             placeholder="비밀번호를 입력하세요"
             required
           />

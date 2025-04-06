@@ -1,13 +1,31 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // 페이지 이동을 위해 import
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
-  const navigate = useNavigate(); // 페이지 이동 함수
+  const navigate = useNavigate();
 
   const handleNavClick = (navItem) => {
-    alert(`${navItem}이 클릭되었습니다!`);
+    if (navItem === "홈") navigate("/");
+    if (navItem === "팀 게시판") navigate("/teams");
+    if (navItem === "자유게시판") navigate("/board/자유게시판");
+    if (navItem === "내 정보") navigate("/my-page");
   };
+
+  const handleLogout = () => {
+    // ✅ 로그아웃 시 localStorage 비우기
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("memberId");
+    localStorage.removeItem("teamNo");
+    localStorage.removeItem("teamName");
+
+    alert("로그아웃 되었습니다.");
+    navigate("/login"); // 로그인 페이지로 이동
+  };
+
+  // ✅ 로그인 여부 판단 (accessToken이 있으면 로그인 상태)
+  const isLoggedIn = !!localStorage.getItem("accessToken");
 
   return (
     <header className="header">
@@ -39,16 +57,29 @@ const Header = () => {
             </li>
           </ul>
         </nav>
+
+        {/* ✅ 로그인 상태에 따라 버튼 표시 */}
         <div className="header-buttons">
-          <button className="btn login-btn" onClick={() => navigate("/login")}>
-            로그인
-          </button>
-          <button
-            className="btn signup-btn"
-            onClick={() => navigate("/sign-up")}
-          >
-            회원가입
-          </button>
+          {isLoggedIn ? (
+            <button className="btn logout-btn" onClick={handleLogout}>
+              로그아웃
+            </button>
+          ) : (
+            <>
+              <button
+                className="btn login-btn"
+                onClick={() => navigate("/login")}
+              >
+                로그인
+              </button>
+              <button
+                className="btn signup-btn"
+                onClick={() => navigate("/sign-up")}
+              >
+                회원가입
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>

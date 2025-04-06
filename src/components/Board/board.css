@@ -1,0 +1,43 @@
+.board-container {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-form textarea {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  height: 100px;
+}
+
+.post-form button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
